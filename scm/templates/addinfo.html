@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block title %}箱箱共用配置管理平台{% endblock %}
+{% block css %}<link href="{% static '' %}" rel="stylesheet">{% endblock %}
+{% block content %}
+     <section class="content">
+      <!-- Default box -->
+         <div class="box">
+             <div class="box-header with-border">
+                 <h3 class="box-title">添加配置信息</h3>
+             </div>
+             <div class="box-body">
+               <form>
+                   {% csrf_token %}
+                    <p><label for="id_env">环境:</label> <input type="text" name="env" style="width:50%;" id="id_env"  class="form-control" maxlength="256" /></p>
+                    <p><label for="id_server">服务器信息:</label> <input type="text" name="server" style="width:50%;" id="id_server"  class="form-control" maxlength="256" /></p>
+                    <p><label for="id_application">应用名:</label> <input type="text" name="application" style="width:50%;" id="id_application" class="form-control" maxlength="256" /></p>
+                    <p><label for="id_port">占用端口:</label> <input type="text" name="cpu_model" style="width:50%;"  id="id_port"  class="form-control" maxlength="256" /></p>
+                    <p><label for="id_deployed">部署信息:</label> <input type="text" name="deployed" style="width:50%;" id="id_deployed"  class="form-control" maxlength="256" /></p>
+                    <p><label for="id_databases">数据库连接:</label> <input type="text" name="databases" style="width:50%;" id="id_databases" class="form-control" maxlength="256" /></p>
+                    <p><label for="id_remarks">备注信息:</label> <textarea name="remarks" style="width:50%;" rows="4" id="id_remarks" class="form-control" cols="15"></textarea></p>
+                    <li onclick="addinfo()" class="btn btn-primary" style="width: 60pt" value="">提交</li>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <a href="/scm/manageinfo/"><li style="width: 60pt" class="btn btn-primary" value="">返回</li></a><br>
+                  <br>
+              </form>
+             </div>
+        <!-- /.box-body -->
+        <div class="box-footer">
+          <i class="fa fa-info-circle"></i> 请勿重复添加条目。
+        </div>
+        <!-- /.box-footer-->
+      </div>
+      <!-- /.box -->
+    </section>
+    {% block script%}<script src="{% static 'js/scm/addinfo.js' %}"> </script>{% endblock %}
+{% endblock %}

@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block title %}箱箱共用配置管理平台{% endblock %}
+{% block css %}
+<!-- DataTables -->
+<link href="{% static 'bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet' %}">
+<link rel="stylesheet" href="plugins/iCheck/flat/blue.css">
+{% endblock %}
+
+{% block content %}
+<section class="content">
+      <div class="row">
+        <div class="col-xs-12">
+          <!-- /.box -->
+          <div class="box">
+            <div class="box-header">
+                 <div class="btn-group">
+                  <button type="button" class="btn btn-default btn-sm"><a href="/scm/addinfo/"><i class="fa fa-plus"> <b>添加配置信息</b></i></a></button>
+                  <button type="button" class="btn btn-default btn-sm"><a href="/index/"><i class="fa fa-reply"> <b>返回首页</b></i></a></button>
+                  <button type="button" class="btn btn-default btn-sm" onclick="checkSubmit()"><i class="fa fa-trash-o" style="color:#337ab7"> <b>删除配置信息</b></i></button>
+                </div>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+            <form>
+                {% csrf_token %}
+              <table id="example1" class="table table-bordered table-striped">
+                <thead>
+                <tr>
+                  <th>
+                     <!-- <button type="button" class="checkbox-toggle"><i class="fa fa-square-o"></i></button>-->
+                       <input type="checkbox" onclick="checkAll(this, 'item1');" />
+                  </th>
+                  <th>环境</th>
+                  <th>服务器信息</th>
+                  <th>应用名</th>
+                  <th>服务端口</th>
+                  <th>部署信息</th>
+                  <th>连接数据库信息</th>
+                  <th>功能</th>
+                </tr>
+                </thead>
+                <tbody>
+                <!--渲染出站点-->
+                {% for i in info_list %}
+                  <!--   <tr>
+                     <td><input type="checkbox"></td>
+                      <td>{{i.name}}</td>
+                      <td>{{i.description}}</td>
+                      <td>{{ i.url }}</td>
+                    </tr>
+                    -->
+                    <tr class="even gradeA">
+                                        <td><input type="checkbox" id="u_id" class="item1" value="{{ i.infoid }}" name="navi_check" /></td>
+                                        <!--<input type="hidden" name="u_name" value="{{ i.env }}">-->
+                                        <td><a href="#"><li style="list-style-type:none" onclick="showInfo(this.value)" value="{{ i.infoid }}">{{ i.env }}</li></a></td>
+                                        <td>{{ i.serverip }}</td>
+                                        <td>{{ i.application }}</td>
+                                        <td>{{ i.port }}</td>
+                                        <td>{{ i.deployed }}</td>
+                                        <td>{{ i.databases }}</td>
+                                        <td><a href="#"><button type="button" onclick="showInfo(this.value)" value="{{ i.infoid }}" class="btn btn-block btn-primary btn-sm">编辑</button></a></td>
+                                    </tr>
+                {% endfor %}
+                </tbody>
+              </table>
+            </form>
+            </div>
+            <!-- /.box-body -->
+          </div>
+          <!-- /.box -->
+        </div>
+        <!-- /.col -->
+      </div>
+      <!-- /.row -->
+    </section>
+
+{% block script%}
+<!-- DataTables -->
+<script src="{% static 'bower_components/jquery/dist/jquery.min.js' %}"></script>
+<script src="{% static 'bower_components/datatables.net/js/jquery.dataTables.min.js' %}"></script>
+<script src="{% static 'bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js' %}"></script>
+<script src="{% static 'plugins/iCheck/icheck.min.js' %}"></script>
+{% endblock %}
+<!-- page script -->
+<script>
+  $(function () {
+    $('#example1').DataTable({
+      'paging'      : true,
+      'lengthChange': false,
+      'searching'   : false,
+      'ordering'    : true,
+      'info'        : true,
+      'autoWidth'   : false
+    })
+  })
+
+
+</script>
+<script src="{% static 'js/scm/manageinfo.js' %}"></script>
+{% endblock %}
