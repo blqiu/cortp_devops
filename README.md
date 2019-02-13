@@ -1,2 +1,2 @@
 # cortp_devops
-django练手项目
+django devops
